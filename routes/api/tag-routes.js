@@ -50,7 +50,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new tag
-  Product.create(req.body)
+  Tag.create(req.body)
   .then((dbTagData) => res.status(200).json(dbTagData))
   .catch((err) => {
     console.log(err);
@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Product.update(req.body, {
+  Tag.update(req.body, {
     where: {
       id: req.params.id
     }
@@ -86,7 +86,7 @@ router.delete('/:id', (req, res) => {
     }
   })
   .then(dbTagData => {
-    if (!dbTagData[0]) {
+    if (!dbTagData) {
       res.status(404).json({ message: 'No tag found with this id' });
       return;
     }
