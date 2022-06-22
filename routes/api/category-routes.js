@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
       }
     ]
   })
-  .then(dbUserData => res.json(dbUserData))
+  .then(dbCategoryData => res.json(dbCategoryData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -35,12 +35,12 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
-  .then(dbPostData => {
-    if (!dbPostData) {
+  .then(dbCategoryData => {
+    if (!dbCategoryData) {
       res.status(404).json({ message: 'No post found with this id' });
       return;
     }
-    res.json(dbPostData);
+    res.json(dbCategoryData);
   })
   .catch(err => {
     console.log(err);
@@ -50,6 +50,14 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
+  Category.create({
+    category_name: req.body.category_name
+  })
+  .then(dbCategoryData => res.json(dbCategoryData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 router.put('/:id', (req, res) => {
